@@ -1,0 +1,8 @@
+fastapi==0.95.0          # FastAPI for the web framework
+uvicorn==0.22.0          # ASGI server for running FastAPI
+flask==2.3.2             # Flask for the frontend
+ccxt==3.1.36             # Library for cryptocurrency trading
+requests==2.31.0         # For making HTTP requests
+pymongo==4.6.0           # MongoDB driver for Python
+python-dotenv==1.0.0     # For managing environment variables
+Flask-HTTPAuth==4.7.0    # For HTTP basic authentication in Flask

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Arbitrage Monitor</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Arbitrage Monitor</h1>
+
+        <!-- Notification messages -->
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class="flashes">
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        <h2>Add Coin</h2>
+        <form action="{{ url_for('add_coin') }}" method="POST">
+            <label for="chain_id">Chain ID:</label>
+            <input type="text" id="chain_id" name="chain_id" required>
+            <label for="pair_id">Pair ID:</label>
+            <input type="text" id="pair_id" name="pair_id" required>
+            <label for="symbol">Symbol:</label>
+            <input type="text" id="symbol" name="symbol" required>
+            <button type="submit">Add Coin</button>
+        </form>
+
+        <h2>Monitored Coins</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Chain ID</th>
+                    <th>Pair ID</th>
+                    <th>Symbol</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for coin in coins %}
+                <tr>
+                    <td>{{ coin.chain_id }}</td>
+                    <td>{{ coin.pair_id }}</td>
+                    <td>{{ coin.symbol }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h2>Detected Arbitrage Opportunities</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Buy Price</th>
+                    <th>Sell Price</th>
+                    <th>Profit</th>
+                    <th>Percentage Difference</th>
+                    <th>Coin</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for opportunity in opportunities %}
+                <tr>
+                    <td>{{ opportunity.type }}</td>
+                    <td>${{ opportunity.buy_price }}</td>
+                    <td>${{ opportunity.sell_price }}</td>
+                    <td>${{ opportunity.profit }}</td>
+                    <td>{{ opportunity.percentage_difference }}%</td>
+                    <td>{{ opportunity.coin }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
